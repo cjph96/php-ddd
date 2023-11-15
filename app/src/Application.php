@@ -19,8 +19,10 @@ final class Application
             $response = $kernel->handle($request);
             $response->send();
             $kernel->terminate($request, $response);
-        }catch (Throwable) {
-            die();
+        } catch (Throwable) {
+            header('Content-Type: application/json');
+            http_response_code(500);
+            echo json_encode(['Error' => 'Internal Server Error']);
         }
     }
 
@@ -32,7 +34,7 @@ final class Application
         try {
             $application->run();
         } catch (Throwable $t) {
-            dd($t);
+            var_dump($t);
         }
     }
 }

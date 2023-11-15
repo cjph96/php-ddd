@@ -4,3 +4,32 @@ services:
       autowire: false
       autoconfigure: false
       public: false
+
+  ### SYMFONY ###
+  App\Shared\Kernel\Infrastructure\Symfony\KernelEventListener:
+    arguments:
+      - '@App\Shared\Kernel\Infrastructure\UI\HTTP\HttpStatusCodeMappingExceptions'
+      - '%app.is.debug%'
+    tags:
+      - { name: kernel.event_listener, event: kernel.view, method: onViewEvent }
+      - { name: kernel.event_listener, event: kernel.exception, method: onExceptionEvent }
+
+  App\Shared\Kernel\Infrastructure\Symfony\HTTP\HttpRequestArgumentResolver:
+    arguments:
+      - '@validator'
+    tags:
+      - { name: controller.argument_value_resolver}
+  ### SYMFONY ###
+  ### UI ###
+  App\Shared\Kernel\Infrastructure\UI\HTTP\HttpController:
+    abstract: true
+    arguments:
+      - '@App\Shared\Kernel\Infrastructure\UI\HTTP\HttpStatusCodeMappingExceptions'
+
+  App\Shared\Kernel\Infrastructure\UI\HTTP\HttpStatusCodeMappingExceptions: ~
+
+  App\Shared\Kernel\Infrastructure\UI\HTTP\Controllers\:
+    resource: '../../../Infrastructure/UI/HTTP/Controllers/*/*Controller.php'
+    public: true
+    parent: App\Shared\Kernel\Infrastructure\UI\HTTP\HttpController
+  ### UI ###
