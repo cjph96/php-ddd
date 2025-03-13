@@ -18,6 +18,7 @@ final class HealthCheckRequest extends HttpRequest
         return (bool) $throwException;
     }
 
+    #[\Override]
     public static function validationConstraint(): ?Constraint
     {
         return new Collection([

@@ -6,16 +6,6 @@ namespace App\Shared\Kernel\Infrastructure\UI\HTTP;
 
 abstract class HttpController
 {
-    public final function __construct(
-        private readonly HttpStatusCodeMappingExceptions $statusCodeMappingExceptions,
-    ){
-        foreach ($this->exceptions() as $exception => $statusCode) {
-            $this->statusCodeMappingExceptions->register($exception, $statusCode);
-        }
+    public final function __construct() {
     }
-
-    /**
-     * @return array<string, HttpStatusCode>
-     */
-    abstract protected function exceptions(): array;
 }

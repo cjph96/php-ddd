@@ -13,23 +13,24 @@ use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class HttpRequestArgumentResolver implements ValueResolverInterface
+final readonly class HttpRequestArgumentResolver implements ValueResolverInterface
 {
-    public function __construct(private readonly ValidatorInterface $validator)
+    public function __construct(private ValidatorInterface $validator)
     {
     }
 
     /**
      * @throws HttpRequestValidationException
      */
+    #[\Override]
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $requestClass = $argument->getType();
-        if (!$requestClass || !is_subclass_of($requestClass, HttpRequest::class)) {
+        if (null === $requestClass || !is_subclass_of($requestClass, HttpRequest::class)) {
             throw new InvalidArgumentException(sprintf(
                 'Expected instance of %s. %s given',
                 HttpRequest::class,
-                $requestClass
+                $requestClass ?? 'null',
             ));
         }
 

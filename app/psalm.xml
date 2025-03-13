@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    findUnusedVariables="true"
+    findUnusedPsalmSuppress="true"
+    totallyTyped="true"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+            <file name="src/Application.php" />
+        </ignoreFiles>
+    </projectFiles>
+    <forbiddenFunctions>
+        <function name="var_dump"/>
+        <function name="dd"/>
+        <function name="die"/>
+    </forbiddenFunctions>
+    <plugins>
+        <!-- https://github.com/psalm/psalm-plugin-symfony -->
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin">
+            <containerXml>var/cache/dev/App_Shared_Kernel_Infrastructure_Symfony_SymfonyKernelDevDebugContainer.xml</containerXml>
+        </pluginClass>
+    </plugins>
+    <extraFiles>
+        <directory name="var/cache/dev/Symfony/Config" /> <!-- https://github.com/psalm/psalm-plugin-symfony/issues/201 -->
+    </extraFiles>
+    <issueHandlers>
+        <PossiblyUnusedMethod>
+            <errorLevel type="info">
+                <directory name="src/Shared/Kernel/Domain"/>
+            </errorLevel>
+        </PossiblyUnusedMethod>
+        <PossiblyUnusedProperty>
+            <errorLevel type="info">
+                <directory name="src"/>
+            </errorLevel>
+        </PossiblyUnusedProperty>
+    </issueHandlers>
+</psalm>

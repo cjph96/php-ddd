@@ -18,12 +18,15 @@ final class SymfonyKernel extends BaseKernel
     {
         self::loadEnvironment($environment);
         parent::__construct(
-            $environment ?: $_SERVER['APP_ENV'],
-            $debug ?: (bool) $_SERVER['APP_DEBUG'],
+            null !== $environment
+                ? $environment
+                : ($_SERVER['APP_ENV'] ?? throw new \RuntimeException('The APP_ENV environment variable must be set.')),
+            $debug ?: (bool) ($_SERVER['APP_DEBUG'] ?? false),
         );
     }
 
     /** Overrides MicroKernelTrait registerBundles method */
+    #[\Override]
     public function registerBundles(): Generator
     {
         foreach (Bundles::getBundles() as $bundle) {

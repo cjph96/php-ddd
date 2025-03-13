@@ -17,7 +17,7 @@ build:
 	$(COMPOSE) build
 
 #composer-install: @ Install composer dependencies
-composer-install:
+composer/install:
 	$(EXEC) composer install
 
 #up: @ Start all containers
@@ -34,3 +34,11 @@ install:
 #shell: @ Run the console inside the PHP container
 shell:
 	$(EXEC) /bin/sh
+
+#psalm: @ Run psalm(static code analytic tool)
+psalm:
+	$(EXEC) vendor/bin/psalm --threads=1 --no-cache --no-diff --show-info=true
+
+#symfony/cc: @ clear symfony cache
+symfony/cc:
+	$(EXEC) php bin/console cache:clear

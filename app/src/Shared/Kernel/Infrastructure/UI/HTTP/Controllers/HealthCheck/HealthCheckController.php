@@ -23,11 +23,4 @@ final class HealthCheckController extends HttpController
 
         return new HttpResponse('OK', HttpStatusCode::OK);
     }
-
-    protected function exceptions(): array
-    {
-        return [
-            InvalidArgumentException::class => HttpStatusCode::BAD_REQUEST,
-        ];
-    }
 }

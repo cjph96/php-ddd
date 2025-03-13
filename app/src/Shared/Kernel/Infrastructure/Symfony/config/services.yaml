@@ -23,8 +23,6 @@ services:
   ### UI ###
   App\Shared\Kernel\Infrastructure\UI\HTTP\HttpController:
     abstract: true
-    arguments:
-      - '@App\Shared\Kernel\Infrastructure\UI\HTTP\HttpStatusCodeMappingExceptions'
 
   App\Shared\Kernel\Infrastructure\UI\HTTP\HttpStatusCodeMappingExceptions: ~
 

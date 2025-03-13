@@ -32,8 +32,9 @@ final class KernelEventListener
         }
 
         $event->setResponse(new JsonResponse(
-            $controllerResponse->data,
+            json_encode($controllerResponse->data),
             $controllerResponse->statusCode->value,
+            json: true,
         ));
     }
 
@@ -57,8 +58,9 @@ final class KernelEventListener
         }
 
         $event->setResponse(new JsonResponse(
-            $response,
+            json_encode($response),
             $this->statusCodeMappingExceptions->statusCodeFor($throwable::class)->value,
+            json: true,
         ));
     }
 }
