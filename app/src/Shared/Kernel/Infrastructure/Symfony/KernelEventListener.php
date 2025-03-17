@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Shared\Kernel\Infrastructure\Symfony;
 
 use App\Shared\Kernel\Domain\DomainException;
-use App\Shared\Kernel\Domain\Utils\UtilsReflection;
-use App\Shared\Kernel\Domain\Utils\UtilsString;
+use App\Shared\Kernel\Domain\Utils\Reflection;
+use App\Shared\Kernel\Domain\Utils\Text;
 use App\Shared\Kernel\Infrastructure\UI\HTTP\HttpResponse;
 use App\Shared\Kernel\Infrastructure\UI\HTTP\HttpStatusCodeMappingExceptions;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,7 +32,7 @@ final class KernelEventListener
         }
 
         $event->setResponse(new JsonResponse(
-            json_encode($controllerResponse->data),
+            json_encode(['data' => $controllerResponse->data]),
             $controllerResponse->statusCode->value,
             json: true,
         ));
@@ -41,11 +41,11 @@ final class KernelEventListener
     public function onExceptionEvent(ExceptionEvent $event): void
     {
         $throwable = $event->getThrowable();
-        $exceptionCode = '';
+        $exceptionCode = 'unknown';
         try {
             $exceptionCode = $throwable instanceof DomainException
                 ? $throwable->errorCode()
-                : UtilsString::snakeCasetoCapsUnderScore(UtilsReflection::extractClassName($throwable));
+                : Text::snakeCaseToCapsUnderScore(Reflection::extractClassName($throwable));
         } catch (\ReflectionException) {}
 
         $response = [

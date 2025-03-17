@@ -15,7 +15,7 @@ final class HttpRequestValidationException extends Exception
         $comma = false;
         foreach ($list as $constraintViolation) {
             $message .= $comma ? ',' : '';
-            $message .= $constraintViolation->getPropertyPath(). ': '. (string) $constraintViolation->getMessage();
+            $message .= str_replace(["[", "]"], "'", $constraintViolation->getPropertyPath()). ': '. (string) $constraintViolation->getMessage();
             $comma = true;
         }
 

@@ -7,7 +7,7 @@ namespace App\Shared\Kernel\Domain\Utils;
 use ReflectionClass;
 use ReflectionException;
 
-final class UtilsReflection
+final class Reflection
 {
     /**
      * @param object|class-string $objectOrClass

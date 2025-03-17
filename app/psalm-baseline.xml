@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="6.8.9@e856423a5dc38d65e56b5792750c557277afe393">
+  <file src="src/Shared/Kernel/Domain/Utils/Text.php">
+    <PossiblyNullArgument>
+      <code><![CDATA[preg_replace(['/([a-z\s])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $text)]]></code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Shared/Kernel/Infrastructure/Symfony/SymfonyKernel.php">
+    <UnusedMethod>
+      <code><![CDATA[configureContainer]]></code>
+    </UnusedMethod>
+  </file>
+  <file src="src/Shared/Kernel/Infrastructure/UI/HTTP/HttpRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+</files>

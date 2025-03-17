@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Shared\Kernel\Domain;
 
-use App\Shared\Kernel\Domain\Utils\UtilsReflection;
-use App\Shared\Kernel\Domain\Utils\UtilsString;
+use App\Shared\Kernel\Domain\Utils\Reflection;
+use App\Shared\Kernel\Domain\Utils\Text;
 use Exception;
 use ReflectionException;
 use Throwable;
@@ -22,8 +22,8 @@ abstract class DomainException extends Exception
      */
     public function errorCode(): string
     {
-        $class = UtilsReflection::extractClassName(static::class);
-        return UtilsString::snakeCasetoCapsUnderScore($class);
+        $class = Reflection::extractClassName(static::class);
+        return Text::snakeCasetoCapsUnderScore($class);
     }
 
     public abstract function errorMessage(): string;

@@ -7,3 +7,4 @@ The project uses **Docker** containers, but you can just take the sources files 
 ## Makefile usage
 1. Run `make help` or `make` to list all the available commands.
 2. Run `make install` to set up the project
+3. Run `make test` run project tests
